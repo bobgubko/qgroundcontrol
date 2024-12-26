@@ -40,13 +40,13 @@ runs:
     - name: Upload stable build to S3 Bucket
       if: ${{ github.event_name == 'push' && !github.event.pull_request.head.repo.fork && inputs.aws_key_id != '' && inputs.aws_secret_access_key != '' }}
       working-directory: ${{ runner.temp }}/shadow_build_dir/${{ inputs.source }}
-      run: aws s3 cp ${{ inputs.artifact_name }} s3://qgroundcontrol/builds/${{ github.ref_name }}/${{ inputs.artifact_name }} --acl public-read
+      run: aws s3 cp ${{ inputs.artifact_name }} s3://qgroundcontroltest/builds/${{ github.ref_name }}/${{ inputs.artifact_name }} --acl public-read --region eu-north-1
       shell: bash
 
     - name: Upload tagged stable build to S3 latest Bucket
       if: ${{ github.event_name == 'push' && github.ref_type == 'tag' && !github.event.pull_request.head.repo.fork && inputs.aws_key_id != '' && inputs.aws_secret_access_key != '' }}
       working-directory: ${{ runner.temp }}/shadow_build_dir/${{ inputs.source }}
-      run: aws s3 cp ${{ inputs.artifact_name }} s3://qgroundcontrol/latest/${{ inputs.artifact_name }} --acl public-read
+      run: aws s3 cp ${{ inputs.artifact_name }} s3://qgroundcontroltest/latest/${{ inputs.artifact_name }} --acl public-read --region eu-north-1
       shell: bash
 
     - name: Create Continuous Release
