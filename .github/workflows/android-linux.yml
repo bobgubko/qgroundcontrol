@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        BuildType: [Release]
+        BuildType: [Debug]
 
     defaults:
       run:
@@ -77,7 +77,6 @@ jobs:
       - run: cp ${{ runner.temp }}/shadow_build_dir/android-build/*.apk ${{ runner.temp }}/shadow_build_dir/${{ env.ARTIFACT }}
 
       - name: Upload Build File
-        if: matrix.BuildType == 'Release'
         uses: ./.github/actions/upload
         with:
           artifact_name: ${{ env.ARTIFACT }}
